@@ -1,5 +1,6 @@
 const registry = {}
 
+// initialize registry in dom
 const withRender = component => {
   return (targetElement, state) => {
     const element = component(targetElement, state)
@@ -20,6 +21,12 @@ const add = (name, component) => {
   registry[name] = withRender(component)
 }
 
+const renderRoot = (root, state) => {
+  const cloneComponent = root => root.cloneNode(true)
+  return withRender(cloneComponent)(root, state)
+}
+
 export default {
   add,
+  renderRoot,
 }
